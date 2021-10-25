@@ -23,4 +23,13 @@ export default {
   text-align: center;
   margin: 1rem;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+#app {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
 </style>
