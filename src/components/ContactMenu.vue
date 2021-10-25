@@ -4,8 +4,8 @@
             <b-icon 
                 class="h4 m-2" 
                 icon="people-fill" 
-                variant="primary"
-                @click="handleContactsShow"
+                v-bind:variant="isContactsShow ? 'primary' : 'light'"
+                @click="handleContactsShow(true)"
             >
             </b-icon>
         </div>
@@ -13,8 +13,8 @@
             <b-icon 
                 class="h4 m-2" 
                 icon="person-plus-fill" 
-                variant="light"
-                    @click="handleContactsShow"
+                v-bind:variant="isContactsShow ? 'light' : 'primary'"
+                @click="handleNewContact()"
             >
             </b-icon>
         </div>
@@ -24,7 +24,14 @@
 <script>
 export default {
   name: 'Menu',
-  props: ['handleContactsShow'],
+  props: ['handleContactsShow', 'isContactsShow', 'handleContactAction'],
+  methods: {
+      handleNewContact()
+      {
+          this.handleContactsShow(false);
+          this.handleContactAction(false);
+      }
+  }
 }
 </script>
 

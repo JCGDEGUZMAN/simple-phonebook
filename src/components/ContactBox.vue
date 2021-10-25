@@ -5,10 +5,19 @@
                 <div class="contact-box p-0 border border-secondary rounded-3">
                     <ContactMenu
                         :handleContactsShow="handleContactsShow"
+                        :handleContactAction="handleContactAction"
+                        :isContactsShow="isContactsShow"
                     />
                     <ContactItem
                         :contacts="contacts"
                         :isContactsShow="isContactsShow"
+                        :handleEditData="handleEditData"
+                    />
+                    <ContactForm
+                        v-if="!isContactsShow"
+                        :isContactsShow="isContactsShow"
+                        :isEditContact="isEditContact"
+                        :editData="editData"
                     />
                 </div>
             </b-col>
@@ -19,6 +28,7 @@
 <script>
 import ContactItem from './ContactItem.vue';
 import ContactMenu from './ContactMenu.vue';
+import ContactForm from './ContactForm.vue';
 
 export default {
   name: 'Contact',
@@ -26,10 +36,13 @@ export default {
   components: {
       ContactItem,
       ContactMenu,
+      ContactForm,
   },
   data() {
       return {
           isContactsShow: true,
+          isEditContact: false,
+          editData: {},
           contacts: [
               {
                   id: 1,
@@ -45,10 +58,22 @@ export default {
       }
   },
   methods: {
-      handleContactsShow()
-      {
-           this.isContactsShow = ! this.isContactsShow;
-      }
+    handleContactsShow(value)
+    {
+        this.isContactsShow = value;
+    },
+
+    handleContactAction(type)
+    {
+        this.isEditContact = type;
+    },
+
+    handleEditData(data)
+    {
+        this.editData = data;
+        this.handleContactsShow(false);
+        this.handleContactAction(true);
+    }
   }
 }
 </script>
@@ -58,6 +83,6 @@ export default {
     height: 95vh;
     overflow: scroll;
     position: relative;
-    background-color: #c4c4c4;
+    background-color: #e0d9d9;
 }
 </style>

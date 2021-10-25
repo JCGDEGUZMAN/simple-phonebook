@@ -10,9 +10,14 @@
                         <div class="phone-no">{{ contact.phone_no }}</div>
                     </div>
                 </div>
-                <div class="m-2">
+                <div class="action-btns m-2">
                     <div>
-                        <b-icon icon="pencil-square" variant="warning"></b-icon>
+                        <b-icon 
+                            icon="pencil-square" 
+                            variant="warning"
+                            @click="handleEditDataAction(contact)"
+                        >
+                        </b-icon>
                     </div>
                     <div>
                         <b-icon icon="trash-fill" variant="danger"></b-icon>
@@ -25,7 +30,13 @@
 <script>
 export default {
   name: 'ContactItem',
-  props: ['contacts', 'isContactsShow'],
+  props: ['contacts', 'isContactsShow', 'handleEditData'],
+  methods: {
+      handleEditDataAction(data)
+      {
+          this.handleEditData(data);
+      }
+  }
 }
 </script>
 
@@ -36,5 +47,9 @@ export default {
 
 .phone-no {
     font-size: 12px;
+}
+
+.action-btns .b-icon {
+    cursor: pointer;
 }
 </style>
