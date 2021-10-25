@@ -20,7 +20,13 @@
                         </b-icon>
                     </div>
                     <div>
-                        <b-icon icon="trash-fill" variant="danger"></b-icon>
+                        <b-icon 
+                            v-b-modal.modal-sm 
+                            icon="trash-fill" 
+                            variant="danger"
+                            @click="handleContactId(contact.id)"
+                        >
+                        </b-icon>
                     </div>
                 </div>
             </div>
@@ -30,7 +36,7 @@
 <script>
 export default {
   name: 'ContactItem',
-  props: ['contacts', 'isContactsShow', 'handleEditData'],
+  props: ['contacts', 'isContactsShow', 'handleEditData', 'handleContactId'],
   methods: {
       handleEditDataAction(data)
       {

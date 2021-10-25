@@ -12,6 +12,7 @@
                         :contacts="contacts"
                         :isContactsShow="isContactsShow"
                         :handleEditData="handleEditData"
+                        :handleContactId="handleContactId"
                     />
                     <ContactForm
                         v-if="!isContactsShow"
@@ -19,6 +20,19 @@
                         :isEditContact="isEditContact"
                         :editData="editData"
                     />
+                    <b-modal 
+                        id="modal-sm" 
+                        size="sm" 
+                        title="Small Modal"
+                        ok-title="Yes"
+                        cancel-title="No"
+                        body-class="fw-bold"
+                        centered
+                        hide-header
+                        @ok="handleContactDelete"
+                    >
+                       Are you sure?
+                    </b-modal>
                 </div>
             </b-col>
         </b-row>
@@ -42,6 +56,7 @@ export default {
       return {
           isContactsShow: true,
           isEditContact: false,
+          contactId: 0,
           editData: {},
           contacts: [
               {
@@ -73,7 +88,17 @@ export default {
         this.editData = data;
         this.handleContactsShow(false);
         this.handleContactAction(true);
-    }
+    },
+
+    handleContactId(id)
+    {
+        this.contactId = id;
+    },
+
+    handleContactDelete()
+    {
+        console.log("contact id: ", this.contactId)
+    },
   }
 }
 </script>
