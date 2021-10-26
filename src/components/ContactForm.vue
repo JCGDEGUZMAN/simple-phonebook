@@ -50,11 +50,11 @@
 </template>
 
 <script>
-import { addContact } from '../actions/contacts.js';
+import { addContact, updateContact } from '../actions/contacts.js';
 
 export default {
     name: 'ContactForm',
-    props: ['isContactsShow','isEditContact','editData', 'handleGetContacts'],
+    props: ['isContactsShow','isEditContact','editData'],
     data() {
         return {
             alertMessage: '',
@@ -73,18 +73,26 @@ export default {
 
             const data = this.form;
 
-            const isCreated = await addContact(data);
+            if(!this.isEditContact)
+            {
+                const isCreated = await addContact(data);
 
-            if(isCreated)
-            {
-                this.handleAlertState('Contact Saved!', 'success');
-                this.form.phone_no = ''
-                this.form.name = ''
-                this.handleGetContacts();
+                if(isCreated)
+                {
+                    this.handleAlertState('Contact Saved!', 'success');
+                    this.form.phone_no = ''
+                    this.form.name = ''
+                }
             }
-            else
+
+            if(this.isEditContact)
             {
-                this.handleAlertState('Creation Failed!', 'danger');
+                const isUpdated = await updateContact(this.editData.id,data);
+
+                if(isUpdated)
+                {
+                    this.handleAlertState('Contact Updated!', 'success');
+                }
             }
         },
 

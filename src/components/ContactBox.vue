@@ -19,7 +19,6 @@
                         :isContactsShow="isContactsShow"
                         :isEditContact="isEditContact"
                         :editData="editData"
-                        :handleGetContacts="handleGetContacts"
                     />
                     <b-modal 
                         id="modal-sm" 
@@ -76,6 +75,7 @@ export default {
         handleContactsShow(value)
         {
             this.isContactsShow = value;
+            this.handleGetContacts();
         },
 
         handleContactAction(type)

@@ -20,12 +20,24 @@ export const addData = async (collection,document) => {
     return await new Promise((resolve,reject) => {
         db.collection(collection).add(document)
             .then(function(doc) {
-                console.log("Tutorial created with ID: ", doc.id);
                 resolve(doc.id);
             })
             .catch(function(error) {
-                console.error("Error adding Tutorial: ", error);
                 reject(error);
+            });
+    })
+}
+
+export const updateData = async (collection,id,document) => {
+    return await new Promise((resolve,reject) => {
+        db.collection(collection).doc(id).update(document)
+            .then(function(res) {
+                console.log(res)
+                resolve(true);
+            })
+            .catch(function(error) {
+                console.log(error)
+                reject(false);
             });
     })
 }
