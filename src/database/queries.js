@@ -41,3 +41,17 @@ export const updateData = async (collection,id,document) => {
             });
     })
 }
+
+export const deleteData = async (collection,id) => {
+    return await new Promise((resolve,reject) => {
+        db.collection(collection).doc(id).delete()
+            .then(function(res) {
+                console.log(res)
+                resolve(true);
+            })
+            .catch(function(error) {
+                console.log(error)
+                reject(false);
+            });
+    })
+}

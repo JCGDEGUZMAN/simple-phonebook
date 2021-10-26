@@ -44,7 +44,7 @@ import ContactItem from './ContactItem.vue';
 import ContactMenu from './ContactMenu.vue';
 import ContactForm from './ContactForm.vue';
 
-import { getContacts } from '../actions/contacts.js';
+import { getContacts, deleteContact } from '../actions/contacts.js';
 
 export default {
   name: 'Contact',
@@ -95,9 +95,10 @@ export default {
             this.contactId = id;
         },
 
-        handleContactDelete()
+        async handleContactDelete()
         {
-            console.log("contact id: ", this.contactId)
+            await deleteContact(this.contactId);
+            this.handleGetContacts();
         },
   }
 }
