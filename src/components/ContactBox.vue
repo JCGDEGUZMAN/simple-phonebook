@@ -19,6 +19,7 @@
                         :isContactsShow="isContactsShow"
                         :isEditContact="isEditContact"
                         :editData="editData"
+                        :handleGetContacts="handleGetContacts"
                     />
                     <b-modal 
                         id="modal-sm" 

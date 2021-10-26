@@ -12,7 +12,20 @@ export const getData = async (collection) => {
                     })
                     resolve(data);
                 });
-                return data;
             })
+    })
+}
+
+export const addData = async (collection,document) => {
+    return await new Promise((resolve,reject) => {
+        db.collection(collection).add(document)
+            .then(function(doc) {
+                console.log("Tutorial created with ID: ", doc.id);
+                resolve(doc.id);
+            })
+            .catch(function(error) {
+                console.error("Error adding Tutorial: ", error);
+                reject(error);
+            });
     })
 }

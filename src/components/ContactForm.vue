@@ -1,5 +1,13 @@
 <template>
     <div v-if="!isContactsShow">
+        <b-alert 
+            :show="dismissCountDown"
+            :variant="variantType"
+            @dismissed="dismissCountDown=0"
+            @dismiss-count-down="countDownChanged"
+        >
+            {{ alertMessage }}
+        </b-alert>
         <div class="form-box m-3 p-4 border rounded-3">
             <div class="h3 fw-bold">{{isEditContact ? 'EDIT CONTACT' : 'NEW CONTACT' }}</div>
             <b-form @submit="onSubmit" @reset="onReset">
@@ -42,11 +50,17 @@
 </template>
 
 <script>
+import { addContact } from '../actions/contacts.js';
+
 export default {
     name: 'ContactForm',
-    props: ['isContactsShow','isEditContact','editData'],
+    props: ['isContactsShow','isEditContact','editData', 'handleGetContacts'],
     data() {
         return {
+            alertMessage: '',
+            variantType: null,
+            dismissSecs: 3,
+            dismissCountDown: 0,
             form: {
                 phone_no: this.isEditContact ? this.editData.phone_no : '',
                 name: this.isEditContact ? this.editData.name : '',
@@ -54,9 +68,35 @@ export default {
         }
     },
     methods: {
-        onSubmit(event) {
+        async onSubmit(event) {
             event.preventDefault()
-            console.log(JSON.stringify(this.form))
+
+            const data = this.form;
+
+            const isCreated = await addContact(data);
+
+            if(isCreated)
+            {
+                this.handleAlertState('Contact Saved!', 'success');
+                this.form.phone_no = ''
+                this.form.name = ''
+                this.handleGetContacts();
+            }
+            else
+            {
+                this.handleAlertState('Creation Failed!', 'danger');
+            }
+        },
+
+        handleAlertState(message='', type) 
+        {
+            this.alertMessage = message;
+            this.variantType = type;
+            this.dismissCountDown = this.dismissSecs
+        },
+
+        countDownChanged(dismissCountDown) {
+            this.dismissCountDown = dismissCountDown
         },
 
         onReset(event) {
