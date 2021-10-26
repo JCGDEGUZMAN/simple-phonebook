@@ -44,6 +44,8 @@ import ContactItem from './ContactItem.vue';
 import ContactMenu from './ContactMenu.vue';
 import ContactForm from './ContactForm.vue';
 
+import { getContacts } from '../actions/contacts.js';
+
 export default {
   name: 'Contact',
   props: {},
@@ -58,47 +60,44 @@ export default {
           isEditContact: false,
           contactId: 0,
           editData: {},
-          contacts: [
-              {
-                  id: 1,
-                  name: 'Juls G. De Guzman',
-                  phone_no: '09876543211',
-              },
-              {
-                  id: 2,
-                  name: 'Chris G. De Guzman',
-                  phone_no: '09876543222',
-              },
-          ]
+          contacts: []
       }
   },
+  mounted() {
+      this.handleGetContacts();
+  },
   methods: {
-    handleContactsShow(value)
-    {
-        this.isContactsShow = value;
-    },
+        async handleGetContacts()
+        {
+            this.contacts = await getContacts();
+        },
 
-    handleContactAction(type)
-    {
-        this.isEditContact = type;
-    },
+        handleContactsShow(value)
+        {
+            this.isContactsShow = value;
+        },
 
-    handleEditData(data)
-    {
-        this.editData = data;
-        this.handleContactsShow(false);
-        this.handleContactAction(true);
-    },
+        handleContactAction(type)
+        {
+            this.isEditContact = type;
+        },
 
-    handleContactId(id)
-    {
-        this.contactId = id;
-    },
+        handleEditData(data)
+        {
+            this.editData = data;
+            this.handleContactsShow(false);
+            this.handleContactAction(true);
+        },
 
-    handleContactDelete()
-    {
-        console.log("contact id: ", this.contactId)
-    },
+        handleContactId(id)
+        {
+            this.contactId = id;
+        },
+
+        handleContactDelete()
+        {
+            console.log("contact id: ", this.contactId)
+        },
   }
 }
 </script>

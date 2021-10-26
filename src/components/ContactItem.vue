@@ -1,9 +1,9 @@
 <template>
         <div v-if="isContactsShow">
-            <div v-for="contact in contacts" :key="contact.id" v-bind:class="['contact d-flex justify-content-between border rounded-3 m-3', (contact.id % 2 == 0) ? 'border-primary' : 'border-success']">
+            <div v-for="contact in contacts" :key="contact.id" class="contact d-flex justify-content-between border rounded-3 m-3 border-primary">
                 <div class="d-flex text-start">
                     <div class="m-2">
-                        <b-icon class="h1" icon="person-circle" v-bind:variant="(contact.id % 2 == 0) ? 'primary' : 'success'"></b-icon>
+                        <b-icon class="h1" icon="person-circle" variant="primary"></b-icon>
                     </div>
                     <div class="m-2">
                         <div class="text-break fw-bold">{{ contact.name }}</div>
